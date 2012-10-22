@@ -3,7 +3,7 @@
 
 #include <map>
 #include <utility> // make_pair
-
+#include <iostream>
 
 #include "config/full_system.hh"
 #include "config/the_isa.hh"
@@ -122,7 +122,7 @@ protected:
   std::string _where;// contains the name of the module that we will inject with the fault (e.g. 'system.cpu')
   std::string _when;// contains information about the timing of the injection
   std::string _what;// contains information about the nature and the value of the injection (how the structures value will be affected)
-  std::string _thread; //contains information about the software thread that the fault will be injected
+  std::string _thread; //contains  information about the software thread that the fault will be injected
   bool _relative;//if true the fault injection timing is relative to a magic instruction
   
   InjectedFaultQueue  *_queue;//the queue in which the fault has been scheduled
@@ -196,7 +196,11 @@ protected:
   int parseWhen(std::string _when);
   int parseWhat(std::string _what);
   
-
+	virtual void store(std::fstream &os);
+	void storeWhat(std::fstream &os);
+	void storeWhen(std::fstream &os);
+	
+	
 public:
   typedef InjectedFaultParams Params;
   
@@ -208,7 +212,7 @@ public:
 
   InjectedFault(Params *params);
   InjectedFault(InjectedFault& source);
-  InjectedFault(ostream &os);
+  InjectedFault(Params *p,  std::fstream &os);
   ~InjectedFault();
   
   const std::string name() const; 

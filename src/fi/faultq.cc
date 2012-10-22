@@ -53,6 +53,28 @@ InjectedFault::InjectedFault(InjectedFault& source):MemObject(source.params()),m
 }
 
 
+InjectedFault::InjectedFault(Params *p,fstream &os)
+	:MemObject(p)
+{
+	std:: string _when, _what, _thread, _where ;
+	int _occ,_rel;
+	os>>_when;
+	os>>_what;
+	os>>_thread;
+	os>>_where;
+	os>>_occ;	
+	os>>_rel;
+	setWhen(_when);
+	setWhere(_where);
+	parseWhat(_what);
+	parseWhen(_when);
+	setFaultID();
+	setOccurrence(_occ);
+	setRelative(_rel);
+
+}
+
+
 InjectedFault::InjectedFault(Params *p)
   : MemObject(p), manifested(false), nxt(NULL), prv(NULL)
 {
@@ -117,6 +139,67 @@ InjectedFault::init()
     std::cout << "InjectedFault:init()\n";
   }
 }
+
+void InjectedFault::storeWhen(std::fstream &os)
+{
+	if ( TickTiming )
+	{
+		os <<"Tick_";
+		os<<getTiming();
+	}
+	else if ( InstructionTiming )
+	{
+		os<<"Inst_"
+		os<<getTiming();
+	}
+	else if ( VirtualAddrTiming )
+	{
+		os<<"Addr_";
+		os<<getTiming();
+	}
+}
+
+void InjectedFault::storeWhat(std::fstream &os)
+{
+  if(InjectedFaultType == ImmediateValue)
+	{
+		os<<"Immd_";
+		os<<getValue();
+	}
+	else if (InjectedFaultType == MaskValue)
+	{
+		os<<"Mask_";
+		os<<getValue();
+	}
+	else if (InjectedFaultType == FlipBit)
+	{
+		os<<"Flip_";
+		os<<getValue();
+	}
+	else if (InjectedFaultType == AllValue)
+	{
+		if(getValue())
+			os<<"All1";
+		else
+			os<<"All0";
+	}
+
+}
+ 
+void InjectedFault::store(std::fstream &os)
+{
+	
+	storeWhen(os);
+	storeWhat(os);
+	os << getThread();
+	os <<getWhere();
+	os << getOccurrence();	
+	os << getRelative();
+	os << getOccurrence();
+	os << getRelative();
+
+}
+
 
 void
 InjectedFault::startup()
