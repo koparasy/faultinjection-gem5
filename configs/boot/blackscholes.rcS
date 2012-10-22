@@ -1,0 +1,4 @@
+cd parsec/install/bin/
+m5 switchcpu
+./alphablack 4 ../inputs/blackscholes/in_4K.txt
+m5 exit

@@ -1,0 +1,3 @@
+cd benchmarks/alpha/
+./serial
+m5 exit

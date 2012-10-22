@@ -1,0 +1,206 @@
+gem5 Simulator System.  http://gem5.org
+gem5 is copyrighted software; use the --copyright option for details.
+
+gem5 compiled May 28 2012 18:23:59
+gem5 started May 28 2012 18:46:16
+gem5 executing on koparasy-Precision-WorkStation-T5500
+command line: ./build/ALPHA_FS/gem5.opt --debug-flags=FaultInjection -r -d exp66 configs/example/fi.py -n 4 -d --caches -b blackscholes -F 5000000000 --firun 1 --where all --threadId 0 --whatval 43 --timeval 3134052 --regnum 28 --ftype register --regtype int --maxinsts=3000000000
+####################################eisai malakas eisai malakas eisai malakas###################################################################
+Global frequency set at 1000000000000 ticks per second
+info: kernel located at: /files/koparasy_files/m5/m5_system_2.0b3/binaries/vmlinux_2.6.27-gcc_4.3.4
+RegisterInjectedFaultParams:create()
+===InjectedFault::dump()===
+	Where: all
+	When: Inst:3134052
+	What: Flip:43
+	threadID: 0
+	faultID: 0
+	faultType: 35396
+	timingType: 2
+	timing: 3134052
+	relative: 1
+	valueType: 3
+	value: 43
+	occurrence: 1
+~==InjectedFault::dump()===
+      0: Event_5: RegisterInjectedFault::RegisterInjectedFaultEvent::RegisterInjectedFaultEvent()
+Listening for system connection on port 3456
+      0: system.tsunami.io.rtc: Real-time clock set to Thu Jan  1 00:00:00 2009
+      0: system.f: RegisterInjectedFault:init()
+0: system.remote_gdb.listener: listening for remote gdb #0 on port 7000
+0: system.remote_gdb.listener: listening for remote gdb #1 on port 7001
+0: system.remote_gdb.listener: listening for remote gdb #2 on port 7002
+0: system.remote_gdb.listener: listening for remote gdb #3 on port 7003
+Switch at instruction count:5000000000
+CPUInjectedFault:startup()
+      0: system.f: RegisterInjectedFault:startup()
+===RegisterInjectedFault::dump()===
+===CPUInjectedFault::dump()===
+===InjectedFault::dump()===
+	Where: all
+	When: Inst:3134052
+	What: Flip:43
+	threadID: 0
+	faultID: 0
+	faultType: 1
+	timingType: 2
+	timing: 3134052
+	relative: 1
+	valueType: 3
+	value: 43
+	occurrence: 1
+~==InjectedFault::dump()===
+	tcontext: 0
+~==CPUInjectedFault::dump()===
+	register: 28
+	regType: 1
+~==RegisterInjectedFault::dump()===
+info: Entering event queue @ 0.  Starting simulation...
+info: Launching CPU 1 @ 100740000
+info: Launching CPU 2 @ 102650500
+info: Launching CPU 3 @ 104560500
+warn: Prefetch instrutions is Alpha do not do anything
+4124486500: system.terminal: attach terminal 0
+warn: Prefetch instrutions is Alpha do not do anything
+hack: be nice to actually delete the event here
+Switched CPUS @ tick 2255041890000
+Changing memory mode to timing
+switching cpus
+**** REAL SIMULATION ****
+info: Entering event queue @ 2255041890000.  Starting simulation...
+warn: Prefetch instrutions is Alpha do not do anything
+warn: Prefetch instrutions is Alpha do not do anything
+warn: Prefetch instrutions is Alpha do not do anything
+2258913264000: global: 	 Process Control Block(PCB) Addressx: 767c000----fffffc0007680000----120024834---- system.new2 ####0#####
+================	ThreadEnabledFault 0 	==========================
+ThreadEnabledInfo InstrCnt:-1 TickCnt: -1 MagicInstVirtualAddr : 18446744073709551615 ThreadId :0
+================	~ThreadEnabledFault~	==========================
+2258913264000: global: ~==Fault Injection Activation Instruction===
+2258913293000: global: ===increaseExecutedTime system.new2===
+2260405652500: system.f: ===RegisterInjectedFault::process() ID: 0 ===
+		FlipBit Value
+		Value before FI: 0
+		Value after FI: 4398046511104
+2260405652500: system.f: ~==RegisterInjectedFault::process() ID: 0 ===
+2287105795000: global: 	 Process Control Block(PCB) Addressx: 767c000----e8d4a51000000000----11f8f7020---- system.new2 ####0#####
+2287105795000: global: ~==Fault Injection Activation Instruction===
+warn: addt/sud   f3,f3,f2: non-standard trapping mode not supported
+warn: subt/sud   f3,f29,f24: non-standard trapping mode not supported
+warn: mult/sud   f24,f10,f12: non-standard trapping mode not supported
+warn: mult/sud   f12,f24,f13: non-standard trapping mode not supported
+warn: mult/sud   f11,f10,f13: non-standard trapping mode not supported
+warn: addt/sud   f13,f10,f15: non-standard trapping mode not supported
+warn: mult/sud   f14,f13,f11: non-standard trapping mode not supported
+warn: addt/sud   f11,f10,f22: non-standard trapping mode not supported
+warn: mult/sud   f11,f10,f12: non-standard trapping mode not supported
+warn: addt/sud   f29,f10,f12: non-standard trapping mode not supported
+warn: mult/sud   f11,f10,f22: non-standard trapping mode not supported
+warn: addt/sud   f29,f22,f25: non-standard trapping mode not supported
+warn: mult/sud   f12,f25,f28: non-standard trapping mode not supported
+warn: subt/sud   f13,f28,f30: non-standard trapping mode not supported
+warn: mult/sud   f14,f10,f23: non-standard trapping mode not supported
+warn: mult/sud   f30,f23,f25: non-standard trapping mode not supported
+warn: mult/sud   f20,f10,f22: non-standard trapping mode not supported
+warn: mult/sud   f1,f25,f10: non-standard trapping mode not supported
+warn: addt/sud   f21,f10,f11: non-standard trapping mode not supported
+warn: mult/sud   f11,f25,f12: non-standard trapping mode not supported
+warn: mult/sud   f12,f25,f13: non-standard trapping mode not supported
+warn: addt/sud   f13,f25,f14: non-standard trapping mode not supported
+warn: mult/sud   f28,f23,f12: non-standard trapping mode not supported
+warn: subt/sud   f29,f12,f22: non-standard trapping mode not supported
+warn: addt/sud   f15,f14,f13: non-standard trapping mode not supported
+warn: addt/sud   f0,f27,f10: non-standard trapping mode not supported
+warn: addt/sud   f22,f13,f24: non-standard trapping mode not supported
+warn: subt/sud   f15,f13,f10: non-standard trapping mode not supported
+warn: subt/sud   f22,f24,f10: non-standard trapping mode not supported
+warn: addt/sud   f10,f14,f26: non-standard trapping mode not supported
+warn: addt/sud   f26,f10,f15: non-standard trapping mode not supported
+warn: addt/sud   f10,f13,f12: non-standard trapping mode not supported
+warn: addt/sud   f12,f15,f11: non-standard trapping mode not supported
+warn: subt/sud   f13,f24,f10: non-standard trapping mode not supported
+warn: addt/sud   f10,f22,f12: non-standard trapping mode not supported
+warn: mult/sud   f23,f12,f11: non-standard trapping mode not supported
+warn: mult/sud   f28,f12,f11: non-standard trapping mode not supported
+warn: subt/sud   f23,f11,f10: non-standard trapping mode not supported
+warn: subt/sud   f28,f11,f10: non-standard trapping mode not supported
+warn: addt/sud   f10,f11,f25: non-standard trapping mode not supported
+warn: addt/sud   f10,f11,f13: non-standard trapping mode not supported
+warn: subt/sud   f23,f25,f14: non-standard trapping mode not supported
+warn: subt/sud   f28,f13,f15: non-standard trapping mode not supported
+warn: mult/sud   f13,f25,f10: non-standard trapping mode not supported
+warn: subt/sud   f10,f12,f25: non-standard trapping mode not supported
+warn: mult/sud   f15,f11,f10: non-standard trapping mode not supported
+warn: mult/sud   f13,f14,f10: non-standard trapping mode not supported
+warn: mult/sud   f15,f14,f10: non-standard trapping mode not supported
+warn: addt/sud   f25,f10,f13: non-standard trapping mode not supported
+warn: addt/sud   f11,f22,f27: non-standard trapping mode not supported
+warn: addt/sud   f14,f27,f12: non-standard trapping mode not supported
+warn: subt/sud   f12,f11,f10: non-standard trapping mode not supported
+warn: addt/sud   f11,f12,f10: non-standard trapping mode not supported
+warn: addt/sud   f10,f24,f15: non-standard trapping mode not supported
+warn: addt/sud   f10,f24,f2: non-standard trapping mode not supported
+warn: mult/sud   f30,f13,f11: non-standard trapping mode not supported
+warn: subt/sud   f30,f11,f10: non-standard trapping mode not supported
+warn: addt/sud   f13,f10,f11: non-standard trapping mode not supported
+warn: addt/sud   f10,f11,f12: non-standard trapping mode not supported
+warn: addt/sud   f11,f10,f14: non-standard trapping mode not supported
+warn: mult/sud   f16,f10,f12: non-standard trapping mode not supported
+warn: addt/sud   f12,f11,f13: non-standard trapping mode not supported
+warn: subt/sud   f13,f11,f14: non-standard trapping mode not supported
+warn: mult/sud   f14,f10,f15: non-standard trapping mode not supported
+warn: mult/sud   f14,f10,f13: non-standard trapping mode not supported
+warn: subt/sud   f16,f15,f12: non-standard trapping mode not supported
+warn: subt/sud   f10,f11,f22: non-standard trapping mode not supported
+warn: subt/sud   f12,f22,f11: non-standard trapping mode not supported
+warn: subt/sud   f10,f13,f11: non-standard trapping mode not supported
+warn: mult/sud   f11,f11,f13: non-standard trapping mode not supported
+warn: addt/sud   f12,f10,f14: non-standard trapping mode not supported
+warn: mult/sud   f13,f14,f15: non-standard trapping mode not supported
+warn: addt/sud   f10,f11,f15: non-standard trapping mode not supported
+warn: mult/sud   f10,f12,f22: non-standard trapping mode not supported
+warn: mult/sud   f14,f12,f10: non-standard trapping mode not supported
+warn: mult/sud   f11,f14,f22: non-standard trapping mode not supported
+warn: mult/sud   f13,f15,f10: non-standard trapping mode not supported
+warn: addt/sud   f22,f10,f12: non-standard trapping mode not supported
+warn: mult/sud   f12,f15,f10: non-standard trapping mode not supported
+warn: addt/sud   f10,f12,f14: non-standard trapping mode not supported
+warn: addt/sud   f14,f10,f15: non-standard trapping mode not supported
+warn: addt/sud   f13,f15,f12: non-standard trapping mode not supported
+warn: subt/sud   f13,f12,f10: non-standard trapping mode not supported
+warn: addt/sud   f10,f15,f22: non-standard trapping mode not supported
+warn: mult/sud   f12,f22,f0: non-standard trapping mode not supported
+warn: mult/sud   f22,f10,f13: non-standard trapping mode not supported
+warn: addt/sud   f13,f12,f14: non-standard trapping mode not supported
+warn: mult/sud   f24,f13,f11: non-standard trapping mode not supported
+warn: subt/sud   f24,f11,f10: non-standard trapping mode not supported
+warn: mult/sud   f12,f13,f11: non-standard trapping mode not supported
+warn: addt/sud   f24,f13,f22: non-standard trapping mode not supported
+warn: subt/sud   f24,f25,f27: non-standard trapping mode not supported
+warn: subt/sud   f24,f22,f10: non-standard trapping mode not supported
+warn: addt/sud   f10,f11,f14: non-standard trapping mode not supported
+warn: addt/sud   f10,f13,f15: non-standard trapping mode not supported
+warn: subt/sud   f12,f14,f23: non-standard trapping mode not supported
+warn: mult/sud   f14,f27,f10: non-standard trapping mode not supported
+warn: mult/sud   f14,f25,f10: non-standard trapping mode not supported
+warn: mult/sud   f23,f27,f10: non-standard trapping mode not supported
+warn: mult/sud   f23,f25,f10: non-standard trapping mode not supported
+warn: subt/sud   f13,f22,f10: non-standard trapping mode not supported
+warn: addt/sud   f11,f10,f12: non-standard trapping mode not supported
+warn: addt/sud   f12,f10,f13: non-standard trapping mode not supported
+warn: addt/sud   f13,f10,f14: non-standard trapping mode not supported
+warn: addt/sud   f15,f14,f12: non-standard trapping mode not supported
+warn: mult/sud   f24,f10,f11: non-standard trapping mode not supported
+warn: addt/sud   f11,f10,f15: non-standard trapping mode not supported
+warn: mult/sud   f15,f24,f11: non-standard trapping mode not supported
+warn: addt/sud   f11,f10,f13: non-standard trapping mode not supported
+warn: mult/sud   f13,f24,f11: non-standard trapping mode not supported
+warn: mult/sud   f14,f24,f11: non-standard trapping mode not supported
+warn: mult/sud   f22,f10,f11: non-standard trapping mode not supported
+warn: mult/sud   f13,f24,f14: non-standard trapping mode not supported
+warn: mult/sud   f14,f24,f15: non-standard trapping mode not supported
+warn: addt/sud   f11,f13,f10: non-standard trapping mode not supported
+warn: addt/sud   f10,f22,f2: non-standard trapping mode not supported
+warn: subt/sud   f13,f11,f10: non-standard trapping mode not supported
+warn: addt/sud   f10,f22,f14: non-standard trapping mode not supported
+warn: mult/sud   f22,f24,f11: non-standard trapping mode not supported
+Exiting @ tick 2498555749500 because m5_exit instruction encountered

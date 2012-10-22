@@ -1,0 +1,75 @@
+
+./src/cpu/static_inst.hh
+
+./src/cpu/simple/atomic.cc~
+
+./src/cpu/simple/atomic.cc
+
+./src/cpu/o3/iew.hh
+
+./src/cpu/o3/cpu.hh
+//ALTERCODE
+//~ALTERCODE
+./src/cpu/o3/iew_impl.hh~
+
+./src/cpu/o3/fetch_impl.hh
+//ALTERCODE
+//~ALTERCODE
+./src/cpu/o3/iew_impl.hh
+  //~ALTERCODE
+./src/cpu/o3/fetch.hh
+//ALTERCODE
+//~ALTERCODE
+      //ALTERCODE
+  //~ALTERCODE
+    //ALTERCODE
+    //~ALTERCODE
+./src/cpu/o3/fetch_impl.hh~
+
+./src/cpu/static_inst.hh~
+
+./src/sim/eventq.hh~
+
+./src/sim/eventq.hh
+
+./src/arch/alpha/isa/decoder.isa
+
+./src/arch/alpha/isa/main.isa
+
+./src/arch/alpha/isa/decoder.isa~
+
+./src/arch/alpha/utility.hh~
+
+./src/arch/alpha/utility.hh
+
+./src/arch/isa_parser.py~
+
+./src/arch/isa_parser.py
+
+./src/mem/physical.hh
+
+./build/ALPHA_SE/cpu/static_inst.hh
+
+ 	    //~ALTERCODE
+./build/ALPHA_SE/cpu/simple/atomic.cc
+
+./build/ALPHA_SE/cpu/o3/iew.hh
+
+./build/ALPHA_SE/cpu/o3/cpu.hh
+
+./build/ALPHA_SE/cpu/o3/fetch_impl.hh
+
+
+./build/ALPHA_SE/cpu/o3/iew_impl.hh
+
+./build/ALPHA_SE/cpu/o3/fetch.hh
+
+./build/ALPHA_SE/sim/eventq.hh
+
+./build/ALPHA_SE/arch/alpha/isa/decoder.isa
+
+./build/ALPHA_SE/arch/alpha/isa/main.isa
+
+./build/ALPHA_SE/arch/alpha/utility.hh
+
+./build/ALPHA_SE/mem/physical.hh

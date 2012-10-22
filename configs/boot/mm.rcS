@@ -1,0 +1,3 @@
+m5 switchcpu
+./mm
+m5 exit
