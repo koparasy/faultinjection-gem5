@@ -17,6 +17,13 @@ O3CPUInjectedFault::O3CPUInjectedFault(O3CPUInjectedFault &source)
   setTContext(source.getTContext());
 }
 
+O3CPUInjectedFault::O3CPUInjectedFault(Params *p, std::ifstream &os)
+: InjectedFault(p,os){
+	int t;
+	os>>t;
+	setTContext(t);
+}
+
 
 O3CPUInjectedFault::~O3CPUInjectedFault()
 {
@@ -33,6 +40,15 @@ O3CPUInjectedFault::description() const
 {
     return "O3CPUInjectedFault";
 }
+
+
+void 
+O3CPUInjectedFault::store(std::ofstream &os){
+	InjectedFault::store(os);
+	os<<getTContext();
+	os<<" ";
+	
+} 
 
 void
 O3CPUInjectedFault::init()

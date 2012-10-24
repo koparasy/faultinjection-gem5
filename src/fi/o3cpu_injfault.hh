@@ -36,6 +36,7 @@ public:
 
   O3CPUInjectedFault(Params *params);
   O3CPUInjectedFault(O3CPUInjectedFault &source);
+	O3CPUInjectedFault(Params *p,std::ifstream &os);
   ~O3CPUInjectedFault();
 
   const std::string name() const;  
@@ -62,6 +63,8 @@ public:
   getCPU() const { return _cpu;} 
   int
   getTContext() const { return _tcontext;}
+protected:
+	virtual void store(std::ofstream &os);
 };
 
 #endif // __O3CPU_INJECTED_FAULT_HH__

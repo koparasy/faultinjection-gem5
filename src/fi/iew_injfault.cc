@@ -11,17 +11,30 @@ IEWStageInjectedFault::IEWStageInjectedFault(Params *p)
   /*TODO: need to check if the returned class is of class BaseCPU
    */
   //setTContext(p->tcontext);
+  setFaultType(InjectedFault::ExecutionInjectedFault);
   iewStageInjectedFaultQueue.insert(this);
 }
 
 IEWStageInjectedFault::IEWStageInjectedFault(IEWStageInjectedFault &source)
   : O3CPUInjectedFault(source)
 {
+	setFaultType(InjectedFault::ExecutionInjectedFault);
 }
 
+IEWStageInjectedFault::IEWStageInjectedFault(Params *p,std::ifstream &os)
+  : O3CPUInjectedFault(p,os)
+{
+	setFaultType(InjectedFault::ExecutionInjectedFault);
+  iewStageInjectedFaultQueue.insert(this);
+}
 
 IEWStageInjectedFault::~IEWStageInjectedFault()
 {
+}
+
+void 
+IEWStageInjectedFault::store(std::ofstream &os){
+	O3CPUInjectedFault::store(os);
 }
 
 const std::string

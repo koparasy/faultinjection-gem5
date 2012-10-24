@@ -23,6 +23,7 @@ public:
 
   IEWStageInjectedFault(Params *params);
   IEWStageInjectedFault(IEWStageInjectedFault &source);
+	IEWStageInjectedFault(Params *p, std::ifstream &os);
   ~IEWStageInjectedFault();
 
   const std::string name() const;  
@@ -76,7 +77,8 @@ public:
 
   void check4reschedule();
   //Port* getPort(const std::string &if_name, int idx = 0);
-
+protected:
+	virtual void store(std::ofstream &os);
 };
 
 #endif // __IEW_STAGE_INJECTED_FAULT_HH__

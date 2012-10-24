@@ -11,6 +11,7 @@ RegisterDecodingInjectedFault::RegisterDecodingInjectedFault(RegisterDecodingInj
  setChangeToReg(source.getChangeToReg());
  setRegToChange(source.getRegToChange());
  setSrcOrDst(source.getSrcOrDst());
+ setFaultType(InjectedFault::RegisterDecodingInjectedFault);
 }
 
 RegisterDecodingInjectedFault::RegisterDecodingInjectedFault(Params *p)
@@ -18,7 +19,20 @@ RegisterDecodingInjectedFault::RegisterDecodingInjectedFault(Params *p)
 {
   parseRegDec(p->regDec);
   decodeStageInjectedFaultQueue.insert(this);
+	setFaultType(InjectedFault::RegisterDecodingInjectedFault);
 }
+
+RegisterDecodingInjectedFault::RegisterDecodingInjectedFault(Params *p, std::ifstream &os)
+	:O3CPUInjectedFault(p,os)
+{
+	string s;
+	os>>s;
+	parseRegDec(s);
+	decodeStageInjectedFaultQueue.insert(this);
+	setFaultType(InjectedFault::RegisterDecodingInjectedFault);
+}
+
+
 
 RegisterDecodingInjectedFault::~RegisterDecodingInjectedFault()
 {
@@ -29,6 +43,24 @@ RegisterDecodingInjectedFault::name() const
 {
   return params()->name;
 }
+
+
+void 
+RegisterDecodingInjectedFault:: store(ofstream &os)
+{
+		O3CPUInjectedFault::store(os);
+		if(getSrcOrDst()==SrcRegisterInjectedFault)
+			os<<"Src:";
+		else
+			os<<"Dst:";
+	
+			
+	os<<getRegToChange();
+	os<<":";
+	os<<getChangeToReg();
+	os<<" ";
+}
+
 
 const char *
 RegisterDecodingInjectedFault::description() const

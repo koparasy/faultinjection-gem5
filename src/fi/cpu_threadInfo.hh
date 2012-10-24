@@ -1,6 +1,9 @@
 #ifndef __CPU_THREAD_FAULT_INFO__
 #define __CPU_THREAD_FAULT_INFO__
 
+
+
+
 #include "config/full_system.hh"
 #include "config/the_isa.hh"
 #include "base/types.hh"

@@ -2,6 +2,9 @@
 #include "fi/cpu_injfault.hh"
 #include "params/CPUInjectedFault.hh"
 
+#include <iostream>
+#include <fstream>
+
 using namespace std;
 
 
@@ -9,6 +12,13 @@ CPUInjectedFault::CPUInjectedFault(Params *p)
   : InjectedFault(p)
 {
   setTContext(p->tcontext);
+}
+
+CPUInjectedFault::CPUInjectedFault(Params *p,  ifstream &os)
+	:InjectedFault(p,os){
+	int t;
+	os>>t;
+	setTContext(t);
 }
 
 CPUInjectedFault::CPUInjectedFault(CPUInjectedFault &source):InjectedFault(source){
@@ -67,7 +77,12 @@ CPUInjectedFaultParams::create()
 }
 
 
- 
+void CPUInjectedFault::store(std::ofstream &os){
+	InjectedFault::store(os);
+	os<<getTContext();
+	os<<" ";
+	
+} 
 
 void CPUInjectedFault::dump() const
 {

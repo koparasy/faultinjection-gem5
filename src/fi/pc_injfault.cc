@@ -51,9 +51,14 @@ PCInjectedFault::PCInjectedFault(PCInjectedFault &source,InjectedFaultQueue& myq
   : CPUInjectedFault(source), PCInjFaultEvent(&myq, this)
 {
   setFaultType(InjectedFault::PCInjectedFault);
-
+	mainInjectedFaultQueue.insert(this);
 }
 
+PCInjectedFault::PCInjectedFault(Params *p, std::ifstream &os)
+	:CPUInjectedFault(p,os), PCInjFaultEvent(&mainInjectedFaultQueue, this){
+	 setFaultType(InjectedFault::PCInjectedFault);
+	 mainInjectedFaultQueue.insert(this);
+}
 
 PCInjectedFault::PCInjectedFault(Params *p)
   : CPUInjectedFault(p), PCInjFaultEvent(&mainInjectedFaultQueue, this)
@@ -62,6 +67,12 @@ PCInjectedFault::PCInjectedFault(Params *p)
 
   mainInjectedFaultQueue.insert(this);
 }
+
+void
+PCInjectedFault::store(std::ofstream &os){
+	CPUInjectedFault::store(os);
+}
+
 
 PCInjectedFault::~PCInjectedFault()
 {

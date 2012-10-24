@@ -38,6 +38,7 @@ public:
    
   PCInjectedFault(Params *params);
   PCInjectedFault(PCInjectedFault &source,InjectedFaultQueue& myq);
+	PCInjectedFault(Params *p, std::ifstream &os);
   ~PCInjectedFault();
 
   const std::string name() const;  
@@ -66,7 +67,8 @@ public:
   /* Manifestation of the fault
    */
   int process();
-
+protected:
+	virtual void store(std::ofstream &os);
 };
 
 #endif // __PC_INJECTED_FAULT_HH__

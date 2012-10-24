@@ -44,6 +44,7 @@ public:
 
   RegisterDecodingInjectedFault(Params *params);
   RegisterDecodingInjectedFault(RegisterDecodingInjectedFault &source);
+	RegisterDecodingInjectedFault(Params *p, std::ifstream &os);
   ~RegisterDecodingInjectedFault();
   const std::string name() const;
   RegisterDecodingInjectedFault* copyme(InjectedFaultQueue& myq){ 
@@ -67,6 +68,8 @@ public:
   int 
   getChangeToReg() const { return _changeToReg;}
 
+protected:
+	virtual void store(std::ofstream &os);
 };
 
 #endif // __REGISTER_DECODING_INJECTED_FAULT_HH__

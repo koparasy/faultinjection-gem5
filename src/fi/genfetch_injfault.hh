@@ -24,6 +24,7 @@ public:
 
   GeneralFetchInjectedFault(Params *params);
   GeneralFetchInjectedFault(GeneralFetchInjectedFault &source);
+	GeneralFetchInjectedFault(Params *p, std::ifstream &os);
   ~GeneralFetchInjectedFault();
 
   const std::string name() const; 
@@ -45,6 +46,8 @@ public:
    *
    */
   void check4reschedule();
+protected:
+	virtual void store(std::ofstream &os);
 };
 
 #endif // __GENERAL_FETCH_INJECTED_FAULT_HH__

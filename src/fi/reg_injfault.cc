@@ -56,6 +56,18 @@ RegisterInjectedFault::RegisterInjectedFault(RegisterInjectedFault &source,Injec
 
 }
 
+RegisterInjectedFault::RegisterInjectedFault(Params *p,ifstream &os)
+	: CPUInjectedFault(p,os), RegInjFaultEvent(&mainInjectedFaultQueue, this)
+{
+		setFaultType(InjectedFault::RegisterInjectedFault);
+		std::string v;
+		int k;
+		os>>v;
+		setRegType(v);
+		os>>k;
+		setRegister(k);
+		mainInjectedFaultQueue.insert(this);
+}
 
 RegisterInjectedFault::RegisterInjectedFault(Params *p)
   : CPUInjectedFault(p), RegInjFaultEvent(&mainInjectedFaultQueue, this)
@@ -70,6 +82,23 @@ RegisterInjectedFault::RegisterInjectedFault(Params *p)
 RegisterInjectedFault::~RegisterInjectedFault()
 {
 }
+
+void
+RegisterInjectedFault::store(std::ofstream &os){
+	CPUInjectedFault::store(os);
+	os << getRegister();
+	os<<" ";
+	if(getRegType()== IntegerRegisterFault)
+		os<<"int ";
+	else if(getRegType() == FloatRegisterFault )
+		os<<"float ";
+	else if(getRegType() ==  MiscRegisterFault)
+		os<<"misc ";
+	
+}
+
+
+
 
 const std::string
 RegisterInjectedFault::name() const

@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 #include "cpu/o3/cpu.hh"
@@ -53,7 +54,7 @@ InjectedFault::InjectedFault(InjectedFault& source):MemObject(source.params()),m
 }
 
 
-InjectedFault::InjectedFault(Params *p,fstream &os)
+InjectedFault::InjectedFault(Params *p,ifstream &os)
 	:MemObject(p)
 {
 	std:: string _when, _what, _thread, _where ;
@@ -140,63 +141,70 @@ InjectedFault::init()
   }
 }
 
-void InjectedFault::storeWhen(std::fstream &os)
+void InjectedFault::storeWhen(std::ofstream &os)
 {
-	if ( TickTiming )
+	if ( getTimingType() == TickTiming )
 	{
-		os <<"Tick_";
+		os<<"Tick_";
 		os<<getTiming();
 	}
-	else if ( InstructionTiming )
+	else if (getTimingType() ==  InstructionTiming )
 	{
-		os<<"Inst_"
+		os<<"Inst_";
 		os<<getTiming();
 	}
-	else if ( VirtualAddrTiming )
+	else if ( getTimingType() ==  VirtualAddrTiming )
 	{
 		os<<"Addr_";
 		os<<getTiming();
 	}
+	os<<" ";
 }
 
-void InjectedFault::storeWhat(std::fstream &os)
+void InjectedFault::storeWhat(std::ofstream &os)
 {
-  if(InjectedFaultType == ImmediateValue)
+  if(getValueType() == ImmediateValue)
 	{
 		os<<"Immd_";
 		os<<getValue();
 	}
-	else if (InjectedFaultType == MaskValue)
+	else if (getValueType() == MaskValue)
 	{
 		os<<"Mask_";
 		os<<getValue();
 	}
-	else if (InjectedFaultType == FlipBit)
+	else if (getValueType() == FlipBit)
 	{
 		os<<"Flip_";
 		os<<getValue();
 	}
-	else if (InjectedFaultType == AllValue)
+	else if (getValueType() == AllValue)
 	{
 		if(getValue())
 			os<<"All1";
 		else
 			os<<"All0";
 	}
-
+	os<<" ";
 }
  
-void InjectedFault::store(std::fstream &os)
+void InjectedFault::store(std::ofstream &os)
 {
 	
 	storeWhen(os);
 	storeWhat(os);
-	os << getThread();
-	os <<getWhere();
-	os << getOccurrence();	
-	os << getRelative();
-	os << getOccurrence();
-	os << getRelative();
+	os<<getThread();
+	os<<" ";
+	os<<getWhere();
+	os<<" ";
+	os<< getOccurrence();	
+	os<<" ";
+	os<< getRelative();
+	os<<" ";
+	os<<getOccurrence();
+	os<<" ";
+	os<< getRelative();
+	os<<" ";
 
 }
 

@@ -5,6 +5,11 @@
 #include "cpu/base.hh"
 #include "params/CPUInjectedFault.hh"
 
+
+#include <iostream>
+#include <fstream>
+
+
 class CPUInjectedFaultParams;
 
 class CPUInjectedFault : public InjectedFault
@@ -34,6 +39,7 @@ public:
 
   CPUInjectedFault(Params *params);
   CPUInjectedFault(CPUInjectedFault &source);
+	CPUInjectedFault(Params *p,  ifstream &os);
   ~CPUInjectedFault();
 
   const std::string name() const;
@@ -62,6 +68,11 @@ public:
   getCPU() const { return _cpu;} 
   int
   getTContext() const { return _tcontext;}
+  
+  
+protected:
+	virtual void store(std::ofstream &os);
+	
 };
 
 #endif // __CPU_INJECTED_FAULT_HH__

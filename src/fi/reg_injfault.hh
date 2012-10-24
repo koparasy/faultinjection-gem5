@@ -75,7 +75,8 @@ public:
   }
   
   RegisterInjectedFault(Params *params);
-   RegisterInjectedFault(RegisterInjectedFault &source,InjectedFaultQueue& myq);
+  RegisterInjectedFault(RegisterInjectedFault &source,InjectedFaultQueue& myq);
+	RegisterInjectedFault(Params *p, std::ifstream &os);
   ~RegisterInjectedFault();
 
   const std::string name() const;
@@ -109,6 +110,8 @@ public:
    */
   int getRegister() const { return _register;}
   RegisterType getRegType() const { return _regType;}
+protected:
+	virtual void store(std::ofstream &os);
 };
 
 #endif // __REGISTER_INJECTED_FAULT_HH__

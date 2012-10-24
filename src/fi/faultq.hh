@@ -4,6 +4,7 @@
 #include <map>
 #include <utility> // make_pair
 #include <iostream>
+#include <fstream>
 
 #include "config/full_system.hh"
 #include "config/the_isa.hh"
@@ -196,9 +197,9 @@ protected:
   int parseWhen(std::string _when);
   int parseWhat(std::string _what);
   
-	virtual void store(std::fstream &os);
-	void storeWhat(std::fstream &os);
-	void storeWhen(std::fstream &os);
+	virtual void store(std::ofstream &os);
+	void storeWhat(std::ofstream &os);
+	void storeWhen(std::ofstream &os);
 	
 	
 public:
@@ -212,7 +213,7 @@ public:
 
   InjectedFault(Params *params);
   InjectedFault(InjectedFault& source);
-  InjectedFault(Params *p,  std::fstream &os);
+  InjectedFault(Params *p,  ifstream &os);
   ~InjectedFault();
   
   const std::string name() const; 

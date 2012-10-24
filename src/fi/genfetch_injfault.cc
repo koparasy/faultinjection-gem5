@@ -9,6 +9,14 @@ using namespace std;
 GeneralFetchInjectedFault::GeneralFetchInjectedFault(Params *p)
   : O3CPUInjectedFault(p)
 {
+	setFaultType(InjectedFault::GeneralFetchInjectedFault);
+  fetchStageInjectedFaultQueue.insert(this);
+}
+
+GeneralFetchInjectedFault::GeneralFetchInjectedFault(Params *p,std::ifstream &os)
+  : O3CPUInjectedFault(p,os)
+{
+	setFaultType(InjectedFault::GeneralFetchInjectedFault);
   fetchStageInjectedFaultQueue.insert(this);
 }
 
@@ -16,10 +24,18 @@ GeneralFetchInjectedFault::GeneralFetchInjectedFault(Params *p)
 GeneralFetchInjectedFault::GeneralFetchInjectedFault(GeneralFetchInjectedFault &source)
   : O3CPUInjectedFault(source)
 {
+	setFaultType(InjectedFault::GeneralFetchInjectedFault);
 }
 
 GeneralFetchInjectedFault::~GeneralFetchInjectedFault()
 {
+}
+
+
+void
+GeneralFetchInjectedFault::store(std::ofstream &os)
+{
+	O3CPUInjectedFault::store(os);
 }
 
 const std::string

@@ -43,6 +43,7 @@ public:
 
   MemoryInjectedFault(Params *params);
   MemoryInjectedFault(MemoryInjectedFault &source , InjectedFaultQueue& myq);
+	MemoryInjectedFault(Params *p,std::ifstream &os);
   ~MemoryInjectedFault();
 
   const std::string name() const; 
@@ -70,6 +71,8 @@ public:
   /* Manifestation of the fault
    */
   int process();
+protected:
+	virtual void store(std::ofstream &os);
   
 };
 

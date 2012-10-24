@@ -60,6 +60,24 @@ MemoryInjectedFault::MemoryInjectedFault(Params *p)
   mainInjectedFaultQueue.insert(this);
 }
 
+
+MemoryInjectedFault::MemoryInjectedFault(Params *p, std::ifstream &os)
+	: InjectedFault(p,os), MemInjFaultEvent(&mainInjectedFaultQueue, this){
+		Addr k;
+		os>>k;
+		setAddress(k);
+		setFaultType(InjectedFault::MemoryInjectedFault);
+		pMem = reinterpret_cast<PhysicalMemory *>(find((getWhere()).c_str())); 
+		mainInjectedFaultQueue.insert(this);
+	}
+
+void 
+MemoryInjectedFault::store(std::ofstream &os){
+	InjectedFault::store(os);
+	os<<getAddress();
+	os<<" ";
+}
+
 MemoryInjectedFault::~MemoryInjectedFault()
 {
 }

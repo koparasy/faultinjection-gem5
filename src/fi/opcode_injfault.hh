@@ -24,6 +24,7 @@ public:
 
   OpCodeInjectedFault(Params *params);
   OpCodeInjectedFault(OpCodeInjectedFault &source);
+	OpCodeInjectedFault(Params *p, std::ifstream &os);
   ~OpCodeInjectedFault();
 
   const std::string name() const;  
@@ -41,6 +42,8 @@ public:
 
   void check4reschedule();
 
+protected:
+	virtual void store(std::ofstream &os);
 
 };
 

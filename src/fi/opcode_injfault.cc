@@ -9,14 +9,24 @@ using namespace std;
 
 OpCodeInjectedFault::OpCodeInjectedFault(OpCodeInjectedFault &source)
   : O3CPUInjectedFault(source){
-    
+    setFaultType(InjectedFault::OpCodeInjectedFault);
   }
 
 OpCodeInjectedFault::OpCodeInjectedFault(Params *p)
   : O3CPUInjectedFault(p)
 {
+	setFaultType(InjectedFault::OpCodeInjectedFault);
   fetchStageInjectedFaultQueue.insert(this);
 }
+
+
+OpCodeInjectedFault::OpCodeInjectedFault(Params *p,std::ifstream &os)
+  : O3CPUInjectedFault(p,os)
+{
+	setFaultType(InjectedFault::OpCodeInjectedFault);
+  fetchStageInjectedFaultQueue.insert(this);
+}
+
 
 OpCodeInjectedFault::~OpCodeInjectedFault()
 {
@@ -26,6 +36,11 @@ const std::string
 OpCodeInjectedFault::name() const
 {
   return params()->name;
+}
+
+void OpCodeInjectedFault::store(std::ofstream &os)
+{
+	O3CPUInjectedFault::store(os);
 }
 
 const char *
