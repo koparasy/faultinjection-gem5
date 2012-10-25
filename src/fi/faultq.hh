@@ -13,6 +13,8 @@
 #include "base/trace.hh"
 #include "debug/FaultInjection.hh"
 
+#include "fi/fi_system.hh"
+
 //#include "fi/cpu_threadInfo.hh"
 
 #include "mem/mem_object.hh"
@@ -26,51 +28,7 @@ class InjectedFaultQueue; // forward declaration
 class InjectedFault; //forward declaration
 class ThreadEnabledFault; //forward declaration
 
-/* Queues for storing the fault injection objects
-   ~
-   mainInjectedFaultQueue: queue for register, pc and memory faults
-   fetchStageInjectedFaultQueue: queue for faults at the fetch stage of the pipeline
-   decodeStageInjectedFaultQueue: queue for faults at the decode stage of the pipeline
-   iewStageInjectedFaultQueue: queue for faults at the execution stage of the pipeline
- */
-extern InjectedFaultQueue mainInjectedFaultQueue;
-extern InjectedFaultQueue fetchStageInjectedFaultQueue;
-extern InjectedFaultQueue decodeStageInjectedFaultQueue;
-extern InjectedFaultQueue iewStageInjectedFaultQueue;
 
-
-/*Hash-like structure for storing which processes or threads can be injected with faults
-  ~
-  For key we use the process control block(PCB) Address (For Alpha architectures is found at IPR_PALtemp23 register)
-  the value is either true or false
- */
-
-extern std::map<Addr, int> fi_activation;
-extern std::map<Addr, int>::iterator fi_activation_iter;
-
-extern int fi_active;
-extern int vectorpos;
-
-
-/* Vector containing all the threads that have enabled 
-* fault Injection
-*/
-
-
-
-/* Currently only one relative point is support. It should be considered to enhance these feature for supporting multiple relative points
- */
-/* PC address value for relative fault injection
- */
-extern Addr MagicInstVirtualAddr;
-
-/* fetched instructions number for relative fault injection
- */
-extern uint64_t MagicInstInstCnt;
-
-/* Simulated Tick number for relative fault injection
- */
- extern int64_t  MagicInstTickCnt;
 
 static const unsigned char singlebit_mask[] = {0x01,
 					       0x02,

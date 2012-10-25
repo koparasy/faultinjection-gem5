@@ -3,6 +3,7 @@
 #include "fi/faultq.hh"
 #include "fi/opcode_injfault.hh"
 #include "params/OpCodeInjectedFault.hh"
+#include "fi/fi_system.hh"
 
 using namespace std;
 
@@ -15,16 +16,16 @@ OpCodeInjectedFault::OpCodeInjectedFault(OpCodeInjectedFault &source)
 OpCodeInjectedFault::OpCodeInjectedFault(Params *p)
   : O3CPUInjectedFault(p)
 {
-	setFaultType(InjectedFault::OpCodeInjectedFault);
-  fetchStageInjectedFaultQueue.insert(this);
+  setFaultType(InjectedFault::OpCodeInjectedFault);
+  fi_system->fetchStageInjectedFaultQueue.insert(this);
 }
 
 
 OpCodeInjectedFault::OpCodeInjectedFault(Params *p,std::ifstream &os)
   : O3CPUInjectedFault(p,os)
 {
-	setFaultType(InjectedFault::OpCodeInjectedFault);
-  fetchStageInjectedFaultQueue.insert(this);
+  setFaultType(InjectedFault::OpCodeInjectedFault);
+  fi_system->fetchStageInjectedFaultQueue.insert(this);
 }
 
 

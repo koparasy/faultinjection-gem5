@@ -457,10 +457,10 @@ class Operand(object):
 #if (FULL_SYSTEM == 1)
             Addr _tmpAddr;
             _tmpAddr = xc->readMiscReg(IPR_PALtemp23);
-            if ((fi_activation.find(_tmpAddr) != fi_activation.end()) && (fi_activation.find(_tmpAddr)->second != -1 )) {
+            if ((fi_system->fi_activation.find(_tmpAddr) != fi_system->fi_activation.end()) && (fi_system->fi_activation.find(_tmpAddr)->second != -1 )) {
             //if (fi_active && MagicAddr == xc->readMiscReg(IPR_PALtemp23)) {
 #else
-            if (fi_active) {
+            if (fi_system->fi_system->fi_active) {
 #endif
 #if defined(__CPU_O3_DYN_INST_HH__) 
               //if (xc->readMiscReg(AlphaISA::IPR_ICM) != AlphaISA::mode_kernel) {
@@ -483,9 +483,9 @@ class Operand(object):
 #endif
                 while (1) {
 #if (FULL_SYSTEM == 1)
-		   iewFault = reinterpret_cast<IEWStageInjectedFault *>(iewStageInjectedFaultQueue.scan(CPUName ,*threadList[fi_activation[_tmpAddr]],__PC));
+		   iewFault = reinterpret_cast<IEWStageInjectedFault *>(fi_system->iewStageInjectedFaultQueue.scan(CPUName ,*(fi_system->threadList[fi_system->fi_activation[_tmpAddr]]),__PC));
 #else
-                  iewFault = reinterpret_cast<IEWStageInjectedFault *>(iewStageInjectedFaultQueue.scan(CPUName, curTick(), __instCnt, __PC));
+                  iewFault = reinterpret_cast<IEWStageInjectedFault *>(fi_system->iewStageInjectedFaultQueue.scan(CPUName, curTick(), __instCnt, __PC));
 #endif
 		  if (iewFault == NULL) {
                     break;
@@ -640,10 +640,10 @@ class IntRegOperand(Operand):
 #if (FULL_SYSTEM == 1)
             Addr _tmpAddr;
             _tmpAddr = xc->readMiscReg(IPR_PALtemp23);
-            if ((fi_activation.find(_tmpAddr) != fi_activation.end()) && (fi_activation.find(_tmpAddr)->second != -1)) {
+            if ((fi_system->fi_activation.find(_tmpAddr) != fi_system->fi_activation.end()) && (fi_system->fi_activation.find(_tmpAddr)->second != -1)) {
             //if (fi_active && MagicAddr == xc->readMiscReg(IPR_PALtemp23)) {
 #else
-            if (fi_active) {
+            if (fi_system->fi_active) {
 #endif
 #if defined(__CPU_O3_DYN_INST_HH__) 
               //if (xc->readMiscReg(AlphaISA::IPR_ICM) != AlphaISA::mode_kernel) {
@@ -666,9 +666,9 @@ class IntRegOperand(Operand):
 #endif
                 while (1) {
 #if (FULL_SYSTEM == 1)
-		   iewFault = reinterpret_cast<IEWStageInjectedFault *>(iewStageInjectedFaultQueue.scan(CPUName , *threadList[fi_activation[_tmpAddr]],__PC));
+		   iewFault = reinterpret_cast<IEWStageInjectedFault *>(fi_system->iewStageInjectedFaultQueue.scan(CPUName , *(fi_system->threadList[fi_system->fi_activation[_tmpAddr]]),__PC));
 #else
-                  iewFault = reinterpret_cast<IEWStageInjectedFault *>(iewStageInjectedFaultQueue.scan(CPUName, curTick(), __instCnt, __PC));
+                  iewFault = reinterpret_cast<IEWStageInjectedFault *>(fi_system->iewStageInjectedFaultQueue.scan(CPUName, curTick(), __instCnt, __PC));
 #endif
                   if (iewFault == NULL) {
                     break;
@@ -746,10 +746,10 @@ class FloatRegOperand(Operand):
 #if (FULL_SYSTEM == 1)
             Addr _tmpAddr;
             _tmpAddr = xc->readMiscReg(IPR_PALtemp23);
-            if ((fi_activation.find(_tmpAddr) != fi_activation.end()) && (fi_activation.find(_tmpAddr)->second != -1)) {
+            if ((fi_system->fi_activation.find(_tmpAddr) != fi_system->fi_activation.end()) && (fi_system->fi_activation.find(_tmpAddr)->second != -1)) {
             //if (fi_active && MagicAddr == xc->readMiscReg(IPR_PALtemp23)) {
 #else
-            if (fi_active) {
+            if (fi_system->fi_active) {
 #endif
 #if defined(__CPU_O3_DYN_INST_HH__) 
               //if (xc->readMiscReg(AlphaISA::IPR_ICM) != AlphaISA::mode_kernel) {
@@ -772,9 +772,9 @@ class FloatRegOperand(Operand):
 #endif
                 while (1) {
 #if (FULL_SYSTEM == 1)
-		   iewFault = reinterpret_cast<IEWStageInjectedFault *>(iewStageInjectedFaultQueue.scan(CPUName , *threadList[fi_activation[_tmpAddr]],__PC));
+		   iewFault = reinterpret_cast<IEWStageInjectedFault *>(fi_system->iewStageInjectedFaultQueue.scan(CPUName , *(fi_system->threadList[fi_system->fi_activation[_tmpAddr]]),__PC));
 #else
-                  iewFault = reinterpret_cast<IEWStageInjectedFault *>(iewStageInjectedFaultQueue.scan(CPUName, curTick(), __instCnt, __PC));
+                  iewFault = reinterpret_cast<IEWStageInjectedFault *>(fi_system->iewStageInjectedFaultQueue.scan(CPUName, curTick(), __instCnt, __PC));
 #endif
                   if (iewFault == NULL) {
                     break;

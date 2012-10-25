@@ -6,26 +6,8 @@
 #include "cpu/o3/cpu.hh"
 #include "fi/faultq.hh"
 #include "fi/cpu_threadInfo.hh"
+#include "fi/fi_system.hh"
 using namespace std;
-
-InjectedFaultQueue mainInjectedFaultQueue("Main Fault Queue");
-InjectedFaultQueue fetchStageInjectedFaultQueue("Fetch Stage Fault Queue");
-InjectedFaultQueue decodeStageInjectedFaultQueue("Decode Stage Fault Queue");
-InjectedFaultQueue iewStageInjectedFaultQueue("IEW Stage Fault Queue");
-
-
-std::map<Addr, int> fi_activation;
-std::map<Addr, int>::iterator fi_activation_iter;
-
-int fi_active = 0;
-int vectorpos = 0;
- 
-
-Addr MagicInstVirtualAddr = 0;
-uint64_t MagicInstInstCnt = 0;
-int64_t  MagicInstTickCnt = 0;
-
-
 
 
 InjectedFault::InjectedFault(InjectedFault& source):MemObject(source.params()),manifested(false),nxt(NULL),prv(NULL){
@@ -93,9 +75,9 @@ InjectedFault::InjectedFault(Params *p)
   
   int ret;
   ret = parseWhen(p->when);
-  if(cores == -1){
-    cores = p->cores;
-    for(i = 0 ; i < cores ; i++){
+  if(fi_system->cores == -1){
+    fi_system->cores = p->cores;
+    for(i = 0 ; i < fi_system->cores ; i++){
       s1 << "system.cpu";
       s1 << i;
       coresCount.push_back(new cpuExecutedTicks(s1.str()));
@@ -463,7 +445,7 @@ InjectedFault *InjectedFaultQueue::scan(std::string s , ThreadEnabledFault &this
   dummy = dummy + 10;
   std:: stringstream s1;
   int cpuindex = atoi(dummy);
-  if(cpuindex > cores){
+  if(cpuindex > fi_system->cores){
     std::cout << "InjectedFault: SCAN :: wrong number of cores!\n";
     assert(0);
   }

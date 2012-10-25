@@ -87,6 +87,7 @@ output exec {{
 #include "fi/faultq.hh"
 #include "fi/cpu_threadInfo.hh"
 #include "fi/iew_injfault.hh"
+#include "fi/fi_system.hh"
     //~ALTERCODE
 using namespace AlphaISA;
 }};

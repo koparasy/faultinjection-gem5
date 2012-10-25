@@ -11,21 +11,14 @@
 #include "base/trace.hh"
 #include "debug/FaultInjection.hh"
 #include "fi/faultq.hh"
+#include "fi/fi_system.hh"
 #include "mem/mem_object.hh"
 #include "params/InjectedFault.hh"
+
 
 class cpuExecutedTicks ; //forward declaration
 class ThreadEnabledFault; 
 
-int increase_fi_counters(std :: string curCpu , ThreadEnabledFault *curThread , int64_t ticks);
-int increase_instr_executed(std:: string curCpu , ThreadEnabledFault *curThread);
-int get_fi_counters(InjectedFault *p , ThreadEnabledFault &thread,std::string curCpu , int64_t *exec_time , uint64_t *exec_instr );
-void storeToFile(std::ofstream &os);
-
-
-extern  std::vector <ThreadEnabledFault * > threadList;
-extern  std::vector <cpuExecutedTicks * > coresCount; 
-extern int cores;
 
 
 class InjectedFaultQueue;
@@ -61,7 +54,6 @@ class cpuExecutedTicks {
 class ThreadEnabledFault {
   friend class InjectedFault;
   private :
-		static int my_id_counter ;
     int64_t MagicInstInstCnt;
     int64_t MagicInstTickCnt;
     Addr MagicInstVirtualAddr;
@@ -88,13 +80,15 @@ class ThreadEnabledFault {
     void setThreaId(int v){ threadId  = v; }
     void setRelative(bool v){Relative = v;}
     void setMyid(){
+	static int my_id_counter = 0;
       myId = my_id_counter++;
     }
-    void setMyid(int64_t v){
+    void setMyid(int64_t v);
+/*	{
 			myId = v;
 			if(myId>my_id_counter)
 				my_id_counter= v;
-		}
+		}*/
     int getMyId(){return myId ;}
     int64_t getMagicInstInstCnt() { return MagicInstInstCnt; }
     int64_t getMagicInstTickCnt() { return MagicInstTickCnt; }

@@ -72,6 +72,7 @@
 #include "fi/cpu_injfault.hh"
 #include "fi/o3cpu_injfault.hh"
 #include "fi/cpu_threadInfo.hh"
+#include "fi/fi_system.hh"
 //~ALTERCODE
 
 using namespace std;
@@ -870,8 +871,8 @@ DefaultFetch<Impl>::tick()
         interruptPending = false;
     }
      //ALTERCODE
-    if(fi_active)
-      increase_fi_counters(cpu->name(),NULL,cpu->ticks(1));
+    if(fi_system->fi_active)
+      fi_system->increase_fi_counters(cpu->name(),NULL,cpu->ticks(1));
 
  //~ALTERCODE
   
@@ -1131,14 +1132,14 @@ DefaultFetch<Impl>::fetch(bool &status_change)
     //register errors
 #if (FULL_SYSTEM == 1)
     _tmpAddr = cpu->getContext(tid)->readMiscReg(AlphaISA::IPR_PALtemp23);
-    if ((fi_activation.find(_tmpAddr) != fi_activation.end()) && (fi_activation.find(_tmpAddr)->second != -1)) {
+    if ((fi_system->fi_activation.find(_tmpAddr) != fi_system->fi_activation.end()) && (fi_system->fi_activation.find(_tmpAddr)->second != -1)) {
     //    if (fi_active && MagicAddr == cpu->getContext(tid)->readMiscReg(AlphaISA::IPR_PALtemp23)) {
 #else
-    if (fi_active) {
+    if (fi_system->fi_active) {
 #endif
       if (TheISA::inUserMode(cpu->getContext(tid))) {	  
 	CPUInjectedFault *regFault;
-	while ((regFault = reinterpret_cast<CPUInjectedFault *>(mainInjectedFaultQueue.scan(cpu->name() , *threadList[fi_activation[_tmpAddr]], pc[tid].instAddr()))) != NULL) {
+	while ((regFault = reinterpret_cast<CPUInjectedFault *>(fi_system->mainInjectedFaultQueue.scan(cpu->name() , *(fi_system->threadList[fi_system->fi_activation[_tmpAddr]], pc[tid].instAddr())))) != NULL) {
 	  regFault->process();
 	}
       }
@@ -1254,15 +1255,15 @@ DefaultFetch<Impl>::fetch(bool &status_change)
       //register errors
 #if (FULL_SYSTEM == 1)
       _tmpAddr = cpu->getContext(tid)->readMiscReg(AlphaISA::IPR_PALtemp23);
-      if ((fi_activation.find(_tmpAddr) != fi_activation.end()) && (fi_activation.find(_tmpAddr)->second != -1)) {
+      if ((fi_system->fi_activation.find(_tmpAddr) != fi_system->fi_activation.end()) && (fi_system->fi_activation.find(_tmpAddr)->second != -1)) {
       //if (fi_active && MagicAddr == cpu->getContext(tid)->readMiscReg(AlphaISA::IPR_PALtemp23)) {
 #else
-      if (fi_active) {
+      if (fi_system->fi_active) {
 #endif
 	
 	if (TheISA::inUserMode(cpu->getContext(tid))) {		
 	  CPUInjectedFault *regFault;
-	  while ((regFault = reinterpret_cast<CPUInjectedFault *>(mainInjectedFaultQueue.scan(cpu->name(),*threadList[fi_activation[_tmpAddr]], pc[tid].instAddr()))) != NULL) {
+	  while ((regFault = reinterpret_cast<CPUInjectedFault *>(fi_system->mainInjectedFaultQueue.scan(cpu->name(),*(fi_system->threadList[fi_system->fi_activation[_tmpAddr]], pc[tid].instAddr())))) != NULL) {
 	    if (pc[tid].instAddr()==4831838344)
 	      assert(0);
 
@@ -1318,15 +1319,15 @@ DefaultFetch<Impl>::fetch(bool &status_change)
 
 #if (FULL_SYSTEM == 1)
 		    _tmpAddr = cpu->getContext(tid)->readMiscReg(AlphaISA::IPR_PALtemp23);
-		    if ((fi_activation.find(_tmpAddr) != fi_activation.end()) && (fi_activation.find(_tmpAddr)->second == -1)) {
+		    if ((fi_system->fi_activation.find(_tmpAddr) != fi_system->fi_activation.end()) && (fi_system->fi_activation.find(_tmpAddr)->second == -1)) {
 		    //if (fi_active && MagicAddr == cpu->getContext(tid)->readMiscReg(AlphaISA::IPR_PALtemp23)) {
 #else
-		    if (fi_active) {
+		    if (fi_system->fi_active) {
 #endif
 		      if (TheISA::inUserMode(cpu->getContext(tid))) {
 			//		    FetchStageInjectedFault *fetchFault;
 			O3CPUInjectedFault *fetchFault;
-			while ((fetchFault = reinterpret_cast<O3CPUInjectedFault *>(fetchStageInjectedFaultQueue.scan(cpu->name(), *threadList[fi_activation[_tmpAddr]], pc[tid].instAddr()))) != NULL) {
+			while ((fetchFault = reinterpret_cast<O3CPUInjectedFault *>(fi_system->fetchStageInjectedFaultQueue.scan(cpu->name(), *(fi_system->threadList[fi_activation[_tmpAddr]], pc[tid].instAddr())))) != NULL) {
 			  extMachInst = fetchFault->process(extMachInst);
 			}
 		      }
@@ -1338,15 +1339,15 @@ DefaultFetch<Impl>::fetch(bool &status_change)
 		    //ALTERCODE
 #if (FULL_SYSTEM == 1)
 		    _tmpAddr = cpu->getContext(tid)->readMiscReg(AlphaISA::IPR_PALtemp23);
-		    if ((fi_activation.find(_tmpAddr) != fi_activation.end()) && (fi_activation.find(_tmpAddr)->second != -1)) {
+		    if ((fi_system->fi_activation.find(_tmpAddr) != fi_system->fi_activation.end()) && (fi_system->fi_activation.find(_tmpAddr)->second != -1)) {
 		    //if (fi_active && MagicAddr == cpu->getContext(tid)->readMiscReg(AlphaISA::IPR_PALtemp23)) {
 #else
-		    if (fi_active) {
+		    if (fi_system->fi_active) {
 #endif
 		      if (TheISA::inUserMode(cpu->getContext(tid))) {
 			//		    DecodeStageInjectedFault *decodeFault;
 			O3CPUInjectedFault *decodeFault;
-			while ((decodeFault = reinterpret_cast<O3CPUInjectedFault *>(decodeStageInjectedFaultQueue.scan(cpu->name() , *threadList[fi_activation[_tmpAddr]], pc[tid].instAddr()))) != NULL) {
+			while ((decodeFault = reinterpret_cast<O3CPUInjectedFault *>(fi_system->decodeStageInjectedFaultQueue.scan(cpu->name() , *(fi_system->threadList[fi_system->fi_activation[_tmpAddr]], pc[tid].instAddr())))) != NULL) {
 			  staticInst = decodeFault->process(staticInst);
 			}
 		      }
@@ -1354,10 +1355,10 @@ DefaultFetch<Impl>::fetch(bool &status_change)
 		    
 #if (FULL_SYSTEM == 1)
 		    _tmpAddr = cpu->getContext(tid)->readMiscReg(AlphaISA::IPR_PALtemp23);
-		    if ((fi_activation.find(_tmpAddr) != fi_activation.end()) && (fi_activation.find(_tmpAddr)->second != -1))
-		      increase_instr_executed(cpu->name(),threadList[fi_activation[_tmpAddr]]);
-		    else if(fi_active)
-		      increase_instr_executed(cpu->name(),NULL);
+		    if ((fi_system->fi_activation.find(_tmpAddr) != fi_system->fi_activation.end()) && (fi_system->fi_activation.find(_tmpAddr)->second != -1))
+		      fi_system->increase_instr_executed(cpu->name(),fi_system->threadList[fi_system->fi_activation[_tmpAddr]]);
+		    else if(fi_system->fi_active)
+		      fi_system->increase_instr_executed(cpu->name(),NULL);
 #endif
 		    //~ALTERCODE
 		    

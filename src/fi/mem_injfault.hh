@@ -3,6 +3,7 @@
 
 #include "mem/physical.hh"
 #include "fi/faultq.hh"
+#include "fi/fi_system.hh"
 
 class MemoryInjectedFaultParams;
 

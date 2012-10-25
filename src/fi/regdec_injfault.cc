@@ -2,6 +2,7 @@
 #include "fi/faultq.hh"
 #include "fi/regdec_injfault.hh"
 #include "params/RegisterDecodingInjectedFault.hh"
+#include "fi/fi_system.hh"
 
 using namespace std;
 
@@ -18,8 +19,8 @@ RegisterDecodingInjectedFault::RegisterDecodingInjectedFault(Params *p)
   : O3CPUInjectedFault(p)
 {
   parseRegDec(p->regDec);
-  decodeStageInjectedFaultQueue.insert(this);
-	setFaultType(InjectedFault::RegisterDecodingInjectedFault);
+  fi_system->decodeStageInjectedFaultQueue.insert(this);
+  setFaultType(InjectedFault::RegisterDecodingInjectedFault);
 }
 
 RegisterDecodingInjectedFault::RegisterDecodingInjectedFault(Params *p, std::ifstream &os)
@@ -28,7 +29,7 @@ RegisterDecodingInjectedFault::RegisterDecodingInjectedFault(Params *p, std::ifs
 	string s;
 	os>>s;
 	parseRegDec(s);
-	decodeStageInjectedFaultQueue.insert(this);
+	fi_system->decodeStageInjectedFaultQueue.insert(this);
 	setFaultType(InjectedFault::RegisterDecodingInjectedFault);
 }
 

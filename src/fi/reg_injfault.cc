@@ -1,6 +1,7 @@
 #include "fi/faultq.hh"
 #include "fi/reg_injfault.hh"
 #include "params/RegisterInjectedFault.hh"
+#include "fi/fi_system.hh"
 
 #ifdef ALPHA_ISA
 #include "arch/alpha/utility.hh"
@@ -57,7 +58,7 @@ RegisterInjectedFault::RegisterInjectedFault(RegisterInjectedFault &source,Injec
 }
 
 RegisterInjectedFault::RegisterInjectedFault(Params *p,ifstream &os)
-	: CPUInjectedFault(p,os), RegInjFaultEvent(&mainInjectedFaultQueue, this)
+	: CPUInjectedFault(p,os), RegInjFaultEvent(&(fi_system->mainInjectedFaultQueue), this)
 {
 		setFaultType(InjectedFault::RegisterInjectedFault);
 		std::string v;
@@ -66,17 +67,17 @@ RegisterInjectedFault::RegisterInjectedFault(Params *p,ifstream &os)
 		setRegType(v);
 		os>>k;
 		setRegister(k);
-		mainInjectedFaultQueue.insert(this);
+		fi_system->mainInjectedFaultQueue.insert(this);
 }
 
 RegisterInjectedFault::RegisterInjectedFault(Params *p)
-  : CPUInjectedFault(p), RegInjFaultEvent(&mainInjectedFaultQueue, this)
+  : CPUInjectedFault(p), RegInjFaultEvent(&(fi_system->mainInjectedFaultQueue), this)
 {
   setFaultType(InjectedFault::RegisterInjectedFault);
   setRegister(p->Register);
   setRegType(p->RegType);
 
-  mainInjectedFaultQueue.insert(this);
+  fi_system->mainInjectedFaultQueue.insert(this);
 }
 
 RegisterInjectedFault::~RegisterInjectedFault()

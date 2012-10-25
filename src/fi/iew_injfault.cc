@@ -1,6 +1,7 @@
 #include "base/types.hh"
 #include "fi/faultq.hh"
 #include "fi/iew_injfault.hh"
+#include "fi/fi_system.hh"
 
 using namespace std;
 
@@ -12,7 +13,7 @@ IEWStageInjectedFault::IEWStageInjectedFault(Params *p)
    */
   //setTContext(p->tcontext);
   setFaultType(InjectedFault::ExecutionInjectedFault);
-  iewStageInjectedFaultQueue.insert(this);
+  fi_system->iewStageInjectedFaultQueue.insert(this);
 }
 
 IEWStageInjectedFault::IEWStageInjectedFault(IEWStageInjectedFault &source)
@@ -24,8 +25,8 @@ IEWStageInjectedFault::IEWStageInjectedFault(IEWStageInjectedFault &source)
 IEWStageInjectedFault::IEWStageInjectedFault(Params *p,std::ifstream &os)
   : O3CPUInjectedFault(p,os)
 {
-	setFaultType(InjectedFault::ExecutionInjectedFault);
-  iewStageInjectedFaultQueue.insert(this);
+  setFaultType(InjectedFault::ExecutionInjectedFault);
+  fi_system->iewStageInjectedFaultQueue.insert(this);
 }
 
 IEWStageInjectedFault::~IEWStageInjectedFault()
@@ -34,7 +35,7 @@ IEWStageInjectedFault::~IEWStageInjectedFault()
 
 void 
 IEWStageInjectedFault::store(std::ofstream &os){
-	O3CPUInjectedFault::store(os);
+  O3CPUInjectedFault::store(os);
 }
 
 const std::string

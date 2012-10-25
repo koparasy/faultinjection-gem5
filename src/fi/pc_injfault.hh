@@ -3,6 +3,7 @@
 
 #include "fi/faultq.hh"
 #include "fi/cpu_injfault.hh"
+#include "fi/fi_system.hh"
 
 class PCInjectedFaultParams;
 

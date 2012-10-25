@@ -1,6 +1,7 @@
 #include "base/types.hh"
 #include "fi/faultq.hh"
 #include "fi/o3cpu_injfault.hh"
+#include "fi/fi_system.hh"
 
 using namespace std;
 

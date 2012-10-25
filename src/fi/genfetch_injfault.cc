@@ -2,6 +2,7 @@
 #include "fi/faultq.hh"
 #include "fi/genfetch_injfault.hh"
 #include "params/GeneralFetchInjectedFault.hh"
+#include "fi/fi_system.hh"
 
 using namespace std;
 
@@ -9,15 +10,15 @@ using namespace std;
 GeneralFetchInjectedFault::GeneralFetchInjectedFault(Params *p)
   : O3CPUInjectedFault(p)
 {
-	setFaultType(InjectedFault::GeneralFetchInjectedFault);
-  fetchStageInjectedFaultQueue.insert(this);
+  setFaultType(InjectedFault::GeneralFetchInjectedFault);
+  fi_system->fetchStageInjectedFaultQueue.insert(this);
 }
 
 GeneralFetchInjectedFault::GeneralFetchInjectedFault(Params *p,std::ifstream &os)
   : O3CPUInjectedFault(p,os)
 {
-	setFaultType(InjectedFault::GeneralFetchInjectedFault);
-  fetchStageInjectedFaultQueue.insert(this);
+  setFaultType(InjectedFault::GeneralFetchInjectedFault);
+  fi_system->fetchStageInjectedFaultQueue.insert(this);
 }
 
 

@@ -4,7 +4,7 @@
 #include "fi/faultq.hh"
 #include "cpu/base.hh"
 #include "params/CPUInjectedFault.hh"
-
+#include "fi/fi_system.hh"
 
 #include <iostream>
 #include <fstream>

@@ -6,6 +6,7 @@
 
 #include "fi/faultq.hh"
 #include "fi/cpu_threadInfo.hh"
+#include "fi/fi_system.hh"
 using namespace std;
 
 class FI_Inst;//forward declaration
@@ -55,7 +56,7 @@ public:
     }
     
     //Schedule remaining faults that can be scheduled
-    mainInjectedFaultQueue.scheduleRelativeFaults(name);
+   // mainInjectedFaultQueue.scheduleRelativeFaults(name);
   }
 
 };

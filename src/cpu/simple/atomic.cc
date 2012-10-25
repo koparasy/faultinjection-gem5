@@ -49,6 +49,7 @@
 #include "fi/o3cpu_injfault.hh"
 #include "fi/cpu_injfault.hh"
 #include "fi/cpu_threadInfo.hh"
+#include "fi/fi_system.hh"
 //~ALTERCODE
 
 using namespace std;
@@ -671,16 +672,16 @@ AtomicSimpleCPU::tick()
 
 #if (FULL_SYSTEM == 1)
 	_tmpAddr = thread->getTC()->readMiscRegNoEffect(AlphaISA::IPR_PALtemp23);
-	if ((fi_activation.find(_tmpAddr) != fi_activation.end()) && (fi_activation.find(_tmpAddr)->second != -1)) {
+	if ((fi_system->fi_activation.find(_tmpAddr) != fi_system->fi_activation.end()) && (fi_system->fi_activation.find(_tmpAddr)->second != -1)) {
 	//if (fi_active && MagicAddr == thread->getTC()->readMiscRegNoEffect(AlphaISA::IPR_PALtemp23)) {
 #else
-	if (fi_active) {
+	if (fi_system->fi_active) {
 #endif
 	      
 	  if (TheISA::inUserMode(thread->getTC())) {
 	    
 	    CPUInjectedFault *regFault;
-	    while ((regFault = reinterpret_cast<CPUInjectedFault *> (mainInjectedFaultQueue.scan(name() , *threadList[fi_activation[_tmpAddr]],thread->pcState().instAddr()))) != NULL) {
+	    while ((regFault = reinterpret_cast<CPUInjectedFault *> (fi_system->mainInjectedFaultQueue.scan(name() , *(fi_system->threadList[fi_system->fi_activation[_tmpAddr]],thread->pcState().instAddr())))) != NULL) {
 	      if (regFault)
 	      regFault->process();
 	    }
@@ -739,14 +740,14 @@ AtomicSimpleCPU::tick()
 	    //fetch faults
 #if (FULL_SYSTEM == 1)
 	    _tmpAddr = thread->getTC()->readMiscRegNoEffect(AlphaISA::IPR_PALtemp23);
-	    if ((fi_activation.find(_tmpAddr) != fi_activation.end()) && (fi_activation.find(_tmpAddr)->second != -1)) {
+	    if ((fi_system->fi_activation.find(_tmpAddr) != fi_system->fi_activation.end()) && (fi_system->fi_activation.find(_tmpAddr)->second != -1)) {
 	    //if (fi_active && MagicAddr == thread->getTC()->readMiscRegNoEffect(AlphaISA::IPR_PALtemp23)) {
 #else
-            if (fi_active) {
+            if (fi_system->fi_active) {
 #endif
 	      if (TheISA::inUserMode(thread->getTC())) {
 		O3CPUInjectedFault *fetchFault;
-		while ((fetchFault = reinterpret_cast<O3CPUInjectedFault *>(fetchStageInjectedFaultQueue.scan(name(),  *threadList[fi_activation[_tmpAddr]],thread->pcState().instAddr()))) != NULL) {
+		while ((fetchFault = reinterpret_cast<O3CPUInjectedFault *>(fi_system->fetchStageInjectedFaultQueue.scan(name(),  *(fi_system->threadList[fi_system->fi_activation[_tmpAddr]],thread->pcState().instAddr())))) != NULL) {
 		  inst = fetchFault->process(inst);
 		}
 	      }
@@ -759,14 +760,14 @@ AtomicSimpleCPU::tick()
 	    //decode faults
 #if (FULL_SYSTEM == 1)
 	    _tmpAddr = thread->getTC()->readMiscRegNoEffect(AlphaISA::IPR_PALtemp23);
-	    if ((fi_activation.find(_tmpAddr) != fi_activation.end()) && (fi_activation.find(_tmpAddr)->second != -1)) {
+	    if ((fi_system->fi_activation.find(_tmpAddr) != fi_system->fi_activation.end()) && (fi_system->fi_activation.find(_tmpAddr)->second != -1)) {
 	      //  if (fi_active && MagicAddr == thread->getTC()->readMiscRegNoEffect(AlphaISA::IPR_PALtemp23)) {
 #else
-            if (fi_active) {
+            if (fi_system->fi_active) {
 #endif
 	      if (TheISA::inUserMode(thread->getTC())) {
 		O3CPUInjectedFault *decodeFault;
-		while ((decodeFault = reinterpret_cast<O3CPUInjectedFault *>(decodeStageInjectedFaultQueue.scan( name() , *threadList[fi_activation[_tmpAddr]],thread->pcState().instAddr()))) != NULL) {
+		while ((decodeFault = reinterpret_cast<O3CPUInjectedFault *>(fi_system->decodeStageInjectedFaultQueue.scan( name() , *(fi_system->threadList[fi_system->fi_activation[_tmpAddr]],thread->pcState().instAddr())))) != NULL) {
 		  curStaticInst = decodeFault->process(curStaticInst);
 		}
 	      }
@@ -794,10 +795,10 @@ AtomicSimpleCPU::tick()
 //ALTERCODE
 #if (FULL_SYSTEM == 1)
 		_tmpAddr = thread->getTC()->readMiscRegNoEffect(AlphaISA::IPR_PALtemp23);
-		if ((fi_activation.find(_tmpAddr) != fi_activation.end()) && (fi_activation.find(_tmpAddr)->second != -1))
-		  increase_instr_executed(name(),threadList[fi_activation[_tmpAddr]]);
-		else if(fi_active)
-		  increase_instr_executed(name(),NULL);
+		if ((fi_system->fi_activation.find(_tmpAddr) != fi_system->fi_activation.end()) && (fi_system->fi_activation.find(_tmpAddr)->second != -1))
+		  fi_system->increase_instr_executed(name(),fi_system->threadList[fi_system->fi_activation[_tmpAddr]]);
+		else if(fi_system->fi_active)
+		  fi_system->increase_instr_executed(name(),NULL);
 #endif
 //~ALTERCODE
 		}
@@ -830,10 +831,10 @@ AtomicSimpleCPU::tick()
 //ALTERCODE
 #if (FULL_SYSTEM == 1)
 	_tmpAddr = thread->getTC()->readMiscRegNoEffect(AlphaISA::IPR_PALtemp23);
-	if ((fi_activation.find(_tmpAddr) != fi_activation.end()) && (fi_activation.find(_tmpAddr)->second != -1))
-	  increase_fi_counters(name(),threadList[fi_activation[_tmpAddr]],latency);
-	if(fi_active)
-	  increase_fi_counters(name(),NULL,latency);
+	if ((fi_system->fi_activation.find(_tmpAddr) != fi_system->fi_activation.end()) && (fi_system->fi_activation.find(_tmpAddr)->second != -1))
+	  fi_system->increase_fi_counters(name(),fi_system->threadList[fi_system->fi_activation[_tmpAddr]],latency);
+	if(fi_system->fi_active)
+	  fi_system->increase_fi_counters(name(),NULL,latency);
 #endif
 //~ALTERCODE    
     

@@ -1116,17 +1116,17 @@ decode OPCODE default Unknown::unknown() {
 
 		  //DPRINTF(FaultInjection, "\t Process Control Block(PCB) Address: %llx\n", _tmpAddr);
 
-		  fi_activation_iter = fi_activation.find(_tmpAddr);
-		  if (fi_activation_iter == fi_activation.end()) { //insert new
-		    fi_activation[_tmpAddr] = vectorpos;
-		    threadList.push_back(new ThreadEnabledFault(thread_id));
-		    (*(threadList[ vectorpos ] )).dump();
+		  fi_system->fi_activation_iter = fi_system->fi_activation.find(_tmpAddr);
+		  if (fi_system->fi_activation_iter == fi_system->fi_activation.end()) { //insert new
+		    fi_system->fi_activation[_tmpAddr] = fi_system->vectorpos;
+		    fi_system->threadList.push_back(new ThreadEnabledFault(thread_id));
+		    (*(fi_system->threadList[ fi_system->vectorpos ] )).dump();
 		    //(*(threadList[ fi_activation [ _tmpAddr ] ] )).dump();
-		    vectorpos++;
-		    fi_active++;
+		    fi_system->vectorpos++;
+		    fi_system->fi_active++;
 		  } else { //flip old
-		    fi_activation[_tmpAddr] = -1;//!fi_activation_iter->second;
-		    fi_active--;
+		    fi_system->fi_activation[_tmpAddr] = -1;//!fi_activation_iter->second;
+		    fi_system->fi_active--;
 		  }
 		  //fi_active = true;
 		  //can also be expresed as:
@@ -1167,16 +1167,16 @@ decode OPCODE default Unknown::unknown() {
 #endif
 		  MagicInstTickCnt = curTick();
 		  Addr _tmpAddr = xc->readMiscReg(AlphaISA::IPR_PALtemp23);
-		  fi_activation_iter = fi_activation.find(_tmpAddr);
-		  if (fi_activation_iter == fi_activation.end()) { 
+		  fi_system->fi_activation_iter = fi_system->fi_activation.find(_tmpAddr);
+		  if (fi_system->fi_activation_iter == fi_system->fi_activation.end()) { 
 		     DPRINTF(FaultInjection, "This thread Has Not enabled fault Injections\n");
 		     assert(0);
 		  } else { 
-		      (*(threadList[ fi_activation [ _tmpAddr ] ] )).setMagicInstInstCnt(MagicInstInstCnt);
-		      (*(threadList[ fi_activation [ _tmpAddr ] ] )).setMagicInstTickCnt(MagicInstTickCnt);
-		      (*(threadList[ fi_activation [ _tmpAddr ] ] )).setMagicInstVirtualAddr(MagicInstVirtualAddr);
-		      (*(threadList[ fi_activation [ _tmpAddr ] ] )).setRelative(true); 
-		      (*(threadList[ fi_activation [ _tmpAddr ] ] )).executed_relative_instr();
+		      (*(fi_system->(threadList[ fi_system->fi_activation [ _tmpAddr ] ] ))).setMagicInstInstCnt(MagicInstInstCnt);
+		      (*(fi_system->(threadList[ fi_system->fi_activation [ _tmpAddr ] ] ))).setMagicInstTickCnt(MagicInstTickCnt);
+		      (*(fi_system->(threadList[ fi_system->fi_activation [ _tmpAddr ] ] ))).setMagicInstVirtualAddr(MagicInstVirtualAddr);
+		      (*(fi_system->(threadList[ fi_system->fi_activation [ _tmpAddr ] ] ))).setRelative(true); 
+		      (*(fi_system->(threadList[ fi_system->fi_activation [ _tmpAddr ] ] ))).executed_relative_instr();
 		  }
 		  
 		  

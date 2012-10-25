@@ -1,3 +1,0 @@
-cd benchmarks/alpha/
-./functioncalls
-m5 exit

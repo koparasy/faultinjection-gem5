@@ -7,6 +7,7 @@
 #include "fi/o3cpu_injfault.hh"
 #include "cpu/o3/cpu.hh"
 #include "params/RegisterDecodingInjectedFault.hh"
+#include "fi/fi_system.hh"
 
 class RegisterDecodingInjectedFaultParams;
 

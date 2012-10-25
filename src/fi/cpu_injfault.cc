@@ -1,6 +1,7 @@
 #include "fi/faultq.hh"
 #include "fi/cpu_injfault.hh"
 #include "params/CPUInjectedFault.hh"
+#include "fi/fi_system.hh"
 
 #include <iostream>
 #include <fstream>

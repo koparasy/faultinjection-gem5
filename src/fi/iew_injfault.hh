@@ -6,6 +6,7 @@
 #include "cpu/o3/cpu.hh"
 #include "fi/o3cpu_injfault.hh"
 #include "params/IEWStageInjectedFault.hh"
+#include "fi/fi_system.hh"
 
 class IEWStageInjectedFaultParams;
 

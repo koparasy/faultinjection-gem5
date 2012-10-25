@@ -1,6 +1,7 @@
 #include "fi/faultq.hh"
 #include "fi/pc_injfault.hh"
 #include "params/PCInjectedFault.hh"
+#include "fi/fi_system.hh"
 
 #ifdef ALPHA_ISA
 #include "arch/alpha/utility.hh"
@@ -51,21 +52,21 @@ PCInjectedFault::PCInjectedFault(PCInjectedFault &source,InjectedFaultQueue& myq
   : CPUInjectedFault(source), PCInjFaultEvent(&myq, this)
 {
   setFaultType(InjectedFault::PCInjectedFault);
-	mainInjectedFaultQueue.insert(this);
+  fi_system->mainInjectedFaultQueue.insert(this);
 }
 
 PCInjectedFault::PCInjectedFault(Params *p, std::ifstream &os)
-	:CPUInjectedFault(p,os), PCInjFaultEvent(&mainInjectedFaultQueue, this){
+	:CPUInjectedFault(p,os), PCInjFaultEvent(&(fi_system->mainInjectedFaultQueue), this){
 	 setFaultType(InjectedFault::PCInjectedFault);
-	 mainInjectedFaultQueue.insert(this);
+	 fi_system->mainInjectedFaultQueue.insert(this);
 }
 
 PCInjectedFault::PCInjectedFault(Params *p)
-  : CPUInjectedFault(p), PCInjFaultEvent(&mainInjectedFaultQueue, this)
+  : CPUInjectedFault(p), PCInjFaultEvent(&(fi_system->mainInjectedFaultQueue), this)
 {
   setFaultType(InjectedFault::PCInjectedFault);
 
-  mainInjectedFaultQueue.insert(this);
+  fi_system->mainInjectedFaultQueue.insert(this);
 }
 
 void

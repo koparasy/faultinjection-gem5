@@ -6,6 +6,7 @@
 #include "fi/faultq.hh"
 #include "cpu/o3/cpu.hh"
 #include "params/O3CPUInjectedFault.hh"
+#include "fi/fi_system.hh"
 
 class O3CPUInjectedFaultParams;
 

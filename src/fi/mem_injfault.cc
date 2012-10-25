@@ -1,6 +1,7 @@
 #include "fi/faultq.hh"
 #include "fi/mem_injfault.hh"
 #include "params/MemoryInjectedFault.hh"
+#include "fi/fi_system.hh"
 
 using namespace std;
 
@@ -50,25 +51,25 @@ MemoryInjectedFault::MemoryInjectedFault(MemoryInjectedFault &source,InjectedFau
   }
 
 MemoryInjectedFault::MemoryInjectedFault(Params *p)
-  : InjectedFault(p), MemInjFaultEvent(&mainInjectedFaultQueue, this), _address(p->address)
+  : InjectedFault(p), MemInjFaultEvent(&(fi_system->mainInjectedFaultQueue), this), _address(p->address)
 {
   DPRINTF(FaultInjection, "MemoryInjectedFault::MemoryInjectedFault()\n");
 
   setFaultType(InjectedFault::MemoryInjectedFault);
   pMem = reinterpret_cast<PhysicalMemory *>(find(p->where.c_str()));  
 
-  mainInjectedFaultQueue.insert(this);
+  fi_system->mainInjectedFaultQueue.insert(this);
 }
 
 
 MemoryInjectedFault::MemoryInjectedFault(Params *p, std::ifstream &os)
-	: InjectedFault(p,os), MemInjFaultEvent(&mainInjectedFaultQueue, this){
+	: InjectedFault(p,os), MemInjFaultEvent(&(fi_system->mainInjectedFaultQueue), this){
 		Addr k;
 		os>>k;
 		setAddress(k);
 		setFaultType(InjectedFault::MemoryInjectedFault);
 		pMem = reinterpret_cast<PhysicalMemory *>(find((getWhere()).c_str())); 
-		mainInjectedFaultQueue.insert(this);
+		fi_system->mainInjectedFaultQueue.insert(this);
 	}
 
 void 
