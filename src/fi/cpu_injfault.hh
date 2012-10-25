@@ -68,9 +68,6 @@ public:
   getCPU() const { return _cpu;} 
   int
   getTContext() const { return _tcontext;}
-  
-  
-protected:
 	virtual void store(std::ofstream &os);
 	
 };

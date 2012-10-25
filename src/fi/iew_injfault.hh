@@ -77,7 +77,6 @@ public:
 
   void check4reschedule();
   //Port* getPort(const std::string &if_name, int idx = 0);
-protected:
 	virtual void store(std::ofstream &os);
 };
 

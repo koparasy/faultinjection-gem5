@@ -151,7 +151,7 @@ class SourceFile(object):
         
 class Source(SourceFile):
     '''Add a c/c++ source file to the build'''
-    def __init__(self, source, Werror=True, swig=False, **guards):
+    def __init__(self, source, Werror=False, swig=False, **guards):
         '''specify the source file, and any guards'''
         super(Source, self).__init__(source, **guards)
 
@@ -874,14 +874,14 @@ def makeEnv(label, objsfx, strip = False, **kwargs):
     new_env.Append(**kwargs)
 
     swig_env = new_env.Clone()
-    swig_env.Append(CCFLAGS='-Werror')
+    #swig_env.Append(CCFLAGS='-Werror')
     if env['GCC']:
         swig_env.Append(CCFLAGS='-Wno-uninitialized')
         swig_env.Append(CCFLAGS='-Wno-sign-compare')
         swig_env.Append(CCFLAGS='-Wno-parentheses')
 
     werror_env = new_env.Clone()
-    werror_env.Append(CCFLAGS='-Werror')
+    #werror_env.Append(CCFLAGS='-Werror')
 
     def make_obj(source, static, extra_deps = None):
         '''This function adds the specified source to the correct

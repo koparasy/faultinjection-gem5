@@ -42,7 +42,6 @@ public:
 
   void check4reschedule();
 
-protected:
 	virtual void store(std::ofstream &os);
 
 };

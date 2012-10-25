@@ -197,7 +197,7 @@ protected:
   int parseWhen(std::string _when);
   int parseWhat(std::string _what);
   
-	virtual void store(std::ofstream &os);
+	
 	void storeWhat(std::ofstream &os);
 	void storeWhen(std::ofstream &os);
 	
@@ -226,7 +226,7 @@ public:
   virtual void init();
   virtual void startup();
   virtual Port* getPort(const std::string &if_name, int idx = 0);
-
+	virtual void store(std::ofstream &os);
   virtual void schedule(bool remove) {};// see implementations for description (mainly used to schedule a fault to either the mainEventQueue or a comInstEventQueue)
 
 
@@ -481,14 +481,15 @@ private:
 protected:
    /*Pointers at the beginning and end of the list (NULL if the list is empty)
    */
-  InjectedFault *head;
-  InjectedFault *tail;
+  
 
   
  
    
     
 public:
+	InjectedFault *head;
+  InjectedFault *tail;
   InjectedFaultQueue(const std::string &n);
 
   //  InjectedFaultQueue(const InjectedFaultQueue &);

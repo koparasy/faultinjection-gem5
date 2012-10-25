@@ -31,8 +31,7 @@
  */
 
 #include <cstdio>
-#include <sstream>
-#include <string>
+#include <stddef.h>
 
 #include "base/cprintf.hh"
 #include "base/inet.hh"

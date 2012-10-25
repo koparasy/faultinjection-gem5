@@ -67,7 +67,6 @@ public:
   /* Manifestation of the fault
    */
   int process();
-protected:
 	virtual void store(std::ofstream &os);
 };
 

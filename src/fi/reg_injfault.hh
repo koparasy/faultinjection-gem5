@@ -110,7 +110,6 @@ public:
    */
   int getRegister() const { return _register;}
   RegisterType getRegType() const { return _regType;}
-protected:
 	virtual void store(std::ofstream &os);
 };
 

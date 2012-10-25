@@ -46,8 +46,8 @@ public:
    *
    */
   void check4reschedule();
-protected:
 	virtual void store(std::ofstream &os);
+	
 };
 
 #endif // __GENERAL_FETCH_INJECTED_FAULT_HH__

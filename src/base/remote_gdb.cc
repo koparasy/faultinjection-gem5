@@ -815,7 +815,7 @@ BaseRemoteGDB::trap(int type)
             goto out;
 
           case GDBCont:
-            if (p - data < (ptrdiff_t)datalen) {
+            if (p - data < (std::ptrdiff_t)datalen) {
                 val = hex2i(&p);
                 context->pcState(val);
             }
@@ -832,7 +832,7 @@ BaseRemoteGDB::trap(int type)
             goto out;
 
           case GDBStep:
-            if (p - data < (ptrdiff_t)datalen) {
+            if (p - data < (std::ptrdiff_t)datalen) {
                 val = hex2i(&p);
                 context->pcState(val);
             }

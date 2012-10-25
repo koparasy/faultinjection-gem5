@@ -56,8 +56,9 @@ public:
   virtual void init();
   virtual void startup();
   virtual Port* getPort(const std::string &if_name, int idx = 0);
-   void setAddress(Addr v){ _address = v ;}
-   Addr getAddress(){return _address;};
+	virtual void store(std::ofstream &os);
+  void setAddress(Addr v){ _address = v ;}
+  Addr getAddress(){return _address;};
   /* Used to schedule the fault into an event queue of the M5
    * remove: if the fault should be removed from the fault queue or not
    */
@@ -71,8 +72,6 @@ public:
   /* Manifestation of the fault
    */
   int process();
-protected:
-	virtual void store(std::ofstream &os);
   
 };
 

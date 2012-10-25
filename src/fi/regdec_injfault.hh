@@ -68,7 +68,6 @@ public:
   int 
   getChangeToReg() const { return _changeToReg;}
 
-protected:
 	virtual void store(std::ofstream &os);
 };
 
